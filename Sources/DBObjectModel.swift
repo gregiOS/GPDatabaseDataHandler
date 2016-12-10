@@ -10,7 +10,7 @@ import Foundation
 import PostgreSQL
 import ObjectMapper
 
-protocol DBObjectModel: Mappable {
+public protocol DBObjectModel: Mappable {
     
     static var dbTableName: String { get }
     
@@ -25,7 +25,7 @@ protocol DBObjectModel: Mappable {
     
 }
 
-extension DBObjectModel {
+public extension DBObjectModel {
     
     
     static func emptyInit() -> Self? {

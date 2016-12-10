@@ -11,7 +11,7 @@ protocol DBConnectionConfigurationProtocol {
     var port: String { get }
 }
 
-struct DBConnectionConfiguration: DBConnectionConfigurationProtocol {
+public struct DBConnectionConfiguration: DBConnectionConfigurationProtocol {
     
     let host:String
     let dbName: String
@@ -19,7 +19,7 @@ struct DBConnectionConfiguration: DBConnectionConfigurationProtocol {
     let password: String?
     let port: String
     
-    init(host: String = "localhost", dbName: String = "postgres", user:String, password: String? = nil, port: String = "5432") {
+    public init(host: String = "localhost", dbName: String = "postgres", user:String, password: String? = nil, port: String = "5432") {
         self.host = host
         self.dbName = dbName
         self.user = user
@@ -27,15 +27,15 @@ struct DBConnectionConfiguration: DBConnectionConfigurationProtocol {
         self.port = port
     }
     
-    static var defaultConfiguration: DBConnectionConfiguration {
+    public static var defaultConfiguration: DBConnectionConfiguration {
         return DBConnectionConfiguration(user: "greg")
     }
 }
 
 
-class DBConnectionManager {
+public class DBConnectionManager {
     
-    static let shared = DBConnectionManager()
+    public static let shared = DBConnectionManager()
     
     var currentConfiguration: DBConnectionConfigurationProtocol?
     
