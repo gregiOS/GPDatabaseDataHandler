@@ -13,3 +13,4 @@ protocol BaseDataMapper {
     func update(objectDictionary: [String: Any]) -> Bool
     func delete(objectDictionary: [String: Any]) -> Bool
 }
+
