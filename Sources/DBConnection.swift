@@ -3,7 +3,7 @@
 import Foundation
 import PostgreSQL
 
-protocol DBConnectionConfigurationProtocol {
+public protocol DBConnectionConfigurationProtocol {
     var host:String { get }
     var dbName: String { get }
     var user:String { get }
@@ -13,11 +13,11 @@ protocol DBConnectionConfigurationProtocol {
 
 public struct DBConnectionConfiguration: DBConnectionConfigurationProtocol {
     
-    let host:String
-    let dbName: String
-    let user:String
-    let password: String?
-    let port: String
+    public let host:String
+    public let dbName: String
+    public let user:String
+    public let password: String?
+    public let port: String
     
     public init(host: String = "localhost", dbName: String = "postgres", user:String, password: String? = nil, port: String = "5432") {
         self.host = host
@@ -37,7 +37,7 @@ public class DBConnectionManager {
     
     public static let shared = DBConnectionManager()
     
-    var currentConfiguration: DBConnectionConfigurationProtocol?
+    public var currentConfiguration: DBConnectionConfigurationProtocol?
     
     lazy var postgres: PGConnection? = {
         guard let currentConfiguration = self.currentConfiguration else {
