@@ -34,11 +34,11 @@ struct ObjectFinder: BaseObjectFinder {
      @brief base method that will be call when someone use getter ObjectModel.get(withId: 10)
      */
     internal func find(with id: Int) -> [String: Any]? {
-        return execute(sqlString: "SELECT * FROM \(dbTableName) WHERE id = \(id)")
+        return execute(sqlString: PSQLQueryFactory.select(dbTableName, "id = \(id)").buildQuery())
     }
     
     internal func findAll() -> [[String: Any]]? {
-        return executeMany(sqlString: "SELECT * FROM \(dbTableName)")
+        return executeMany(sqlString: PSQLQueryFactory.selectAll(dbTableName).buildQuery())
     }
     
     }

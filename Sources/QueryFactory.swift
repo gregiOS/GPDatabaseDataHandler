@@ -17,6 +17,8 @@ enum PSQLQueryFactory: QueryObject {
     case update([String: Any], String, String) // first dictionary represents dictionary, //second string dbTableName, // third primaryKey
     case insert([String: Any], String)
     case delete([String: Any], String, String) // ObjectDict, PrimaryKey, TableName
+    case select(String, String)
+    case selectAll(String)
     
     func buildQuery() -> String {
         switch self {
@@ -26,7 +28,19 @@ enum PSQLQueryFactory: QueryObject {
             return buildInsertQuery(objectDictionary: dictionary, command: "INSERT INTO \(dbTableName)")
         case .delete(let dictionary, let primaryKey, let dbTableName):
             return buildDeleteQuery(objectDictionary: dictionary, command: "DELETE FROM \(dbTableName)", primaryKey: primaryKey)
+        case .select(let dbTableName, let whereClausure):
+            return buildSelectCommand(tableName: dbTableName, whereClausure: whereClausure)
+        case .selectAll(let dbTableName):
+            return buildSelectAllQuery(tableName: dbTableName)
         }
+    }
+    
+    private func buildSelectCommand(tableName: String, whereClausure: String) -> String {
+        return "SELECT * FROM \(tableName)  WHERE " + whereClausure
+    }
+    
+    private func buildSelectAllQuery(tableName: String) -> String {
+        return "SELECT * FROM \(tableName)"
     }
     
     private func buildUpdateQuery(objectDictionary: [String: Any], command: String, primaryKey: String? = nil) -> String {
